@@ -1,6 +1,9 @@
 #[plot4.R]
 #
 #
+
+padraoLocal <- Sys.getlocale('LC_TIME') # Save local time
+Sys.setlocale('LC_TIME', 'C')           # Set time to English standard
 dataFile <- "./exdata-data-household_power_consumption/household_power_consumption.txt"
 data <- read.table(dataFile, header=TRUE, sep=";", stringsAsFactors=FALSE, dec=".")
 subSetData <- data[data$Date %in% c("1/2/2007","2/2/2007") ,]
@@ -21,3 +24,4 @@ lines(datetime, subMetering3, type="l", col="blue")
 legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty=, lwd=2.5, col=c("black", "red", "blue"), bty="o")
 plot(datetime, globalReactivePower, type="l", xlab="datetime", ylab="Global_reactive_power")
 dev.off()
+Sys.setlocale('LC_TIME', padraoLocal)   # Set time to original standard
